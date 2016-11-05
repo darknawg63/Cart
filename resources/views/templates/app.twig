@@ -2,23 +2,24 @@
 <html lang="en">
 
 <head>
-    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="http://cart.dev/assets/css/bootstrap.min.css">
     <meta charset="UTF-8">
     <title>Document</title>
 </head>
 
 <body>
-    {% include "templates/partials/navigation.twig" %}
+    {% include 'templates/partials/navigation.twig' %}
 
 
     <div class="container">
-        {% block content %}{% endblock %}
+        {% block content %} {% endblock %}
     </div>
 
 
-    <script type="text/javascript" src="assets/js/jquery-3.1.1.min.js">
+    <!-- absolute paths seem to work better than relative ones -->
+    <script type="text/javascript" src="http://cart.dev/assets/js/jquery-3.1.1.min.js">
     </script>
-    <script type="text/javascript" src="assets/js/bootstrap.min.js">
+    <script type="text/javascript" src="http://cart.dev/assets/js/bootstrap.min.js">
     </script>
 </body>
 
