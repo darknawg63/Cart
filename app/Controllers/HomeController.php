@@ -14,10 +14,10 @@ class HomeController
 {
     public function index(Request $request, Response $response, Twig $view, Product $product)
     {
-        // Just for testing connectivity for now
         $products = $product->get();
-        var_dump($products->first());
-        die();
-        return $view->render($response, 'home.twig');
+
+        return $view->render($response, 'home.twig', [
+            'products' => $products
+        ]);
     }
 }

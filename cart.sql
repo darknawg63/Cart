@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Nov 01, 2016 at 03:24 PM
+-- Generation Time: Nov 05, 2016 at 11:02 AM
 -- Server version: 10.1.18-MariaDB-1~xenial
 -- PHP Version: 7.0.8-0ubuntu0.16.04.3
 
@@ -28,6 +28,7 @@ USE `cart`;
 -- Table structure for table `addresses`
 --
 
+DROP TABLE IF EXISTS `addresses`;
 CREATE TABLE `addresses` (
   `id` int(11) UNSIGNED NOT NULL,
   `address1` varchar(255) NOT NULL,
@@ -44,6 +45,7 @@ CREATE TABLE `addresses` (
 -- Table structure for table `customers`
 --
 
+DROP TABLE IF EXISTS `customers`;
 CREATE TABLE `customers` (
   `id` int(11) UNSIGNED NOT NULL,
   `name` varchar(255) NOT NULL,
@@ -58,6 +60,7 @@ CREATE TABLE `customers` (
 -- Table structure for table `orders`
 --
 
+DROP TABLE IF EXISTS `orders`;
 CREATE TABLE `orders` (
   `id` int(11) UNSIGNED NOT NULL,
   `hash` varchar(255) NOT NULL,
@@ -75,6 +78,7 @@ CREATE TABLE `orders` (
 -- Table structure for table `orders_products`
 --
 
+DROP TABLE IF EXISTS `orders_products`;
 CREATE TABLE `orders_products` (
   `id` int(11) UNSIGNED NOT NULL,
   `order_id` int(11) NOT NULL,
@@ -88,6 +92,7 @@ CREATE TABLE `orders_products` (
 -- Table structure for table `payments`
 --
 
+DROP TABLE IF EXISTS `payments`;
 CREATE TABLE `payments` (
   `id` int(11) UNSIGNED NOT NULL,
   `order_id` int(11) NOT NULL,
@@ -103,6 +108,7 @@ CREATE TABLE `payments` (
 -- Table structure for table `products`
 --
 
+DROP TABLE IF EXISTS `products`;
 CREATE TABLE `products` (
   `id` int(10) UNSIGNED NOT NULL,
   `title` varchar(255) NOT NULL,
@@ -120,12 +126,12 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `title`, `slug`, `description`, `price`, `image`, `stock`, `created_at`, `updated_at`) VALUES
-(1, 'WOMEN\'S GOLF BIOM G 2 ', ' womens - golf - biom - g2 ', ' Casual walking shoe,\r\n  women \' s ', 149.99, NULL, 200, '2016-11-01 14:22:52', NULL),
-(2, ' SHAPE 25 ', ' shape -25 ', ' High boot,\r\n  women \' s,\r\n  ', 229.99, NULL, 50, '2016-11-01 14:22:52', NULL),
-(3, ' ELAINE ', ' elaine ', ' Hiking boot,\r\n  women \' s ', 139.99, NULL, 100, '2016-11-01 14:22:52', NULL),
-(4, ' UKIUK ', ' ukiuk ', ' Soft casual boot,\r\n  women \' s ', 149.99, NULL, 200, '2016-11-01 14:22:52', NULL),
-(5, ' JAMESTOWN ', ' jamestown ', ' Casual walking shoe,\r\n  men \' s ', 149.99, NULL, 200, '2016-11-01 14:22:52', NULL),
-(6, ' MEN\'S GOLF CAGE', 'mens-golf-cage', 'Comfortable golf shoe, men\'s', 179.99, NULL, 80, '2016-11-01 14:22:53', NULL);
+(1, 'WOMEN\'S GOLF BIOM G2 ', 'womens-golf-biom-g2 ', 'The women\'s Golf Biom G2 is an extremely balanced light golfing shoe of top quality.', 149.99, 'http://placehold.it/350x150?text=Product+image', 200, '2016-11-01 14:22:52', NULL),
+(2, 'SHAPE 25 ', 'shape-25 ', 'The Shape 25 is a high boot that flatters and accentuates a women\'s calves. Like a woman, the fit feels strong yet subtle.\r\n  ', 229.99, 'http://placehold.it/350x150?text=Product+image', 50, '2016-11-01 14:22:52', NULL),
+(3, 'ELAINE ', 'elaine ', 'The Ecco Elain is for the woman who\'s on the go. Not just a hiking boot, but also exceptional for every day use.', 139.99, 'http://placehold.it/350x150?text=Product+image', 100, '2016-11-01 14:22:52', NULL),
+(4, 'UKIUK ', 'ukiuk ', 'The UKIUK is a soft, casual, short boot for all occasions. No woman\'s wardrobe would be complete without them. ', 149.99, 'http://placehold.it/350x150?text=Product+image', 200, '2016-11-01 14:22:52', NULL),
+(5, 'JAMESTOWN ', 'jamestown ', 'Our Jamestown supports the foot with its soft but firmly bolstered heel cup. ', 149.99, 'http://placehold.it/350x150?text=Product+image', 200, '2016-11-01 14:22:52', NULL),
+(6, 'MEN\'S GOLF CAGE', 'mens-golf-cage', 'The men\'s Golf Cage is an extremely durable light golfing shoe of premium quality.', 179.99, 'http://placehold.it/350x150?text=Product+image', 80, '2016-11-01 14:22:53', NULL);
 
 --
 -- Indexes for dumped tables

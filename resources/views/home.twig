@@ -1,1 +1,24 @@
-This is the home page
+{% extends "templates/app.twig" %} {% block content %}
+
+<div class="row">
+
+    {% for index, product in products %}
+
+    <div class="col-md-4 col-sm-6">
+
+        {% include "products/partials/item.twig" with {lproduct: product} %}
+
+    </div>
+
+    {% if (index + 1) % 3 == 0 %}
+
+    <div class="row">
+
+
+    </div>
+
+    {% endif %} {% endfor %}
+
+</div>
+
+{% endblock %}
