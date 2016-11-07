@@ -1,0 +1,5 @@
+{% extends 'templates/app.twig' %} {% block content %}
+
+    {{ basket.all | json_encode }}
+
+{% endblock %}
