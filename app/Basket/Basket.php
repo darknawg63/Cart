@@ -70,6 +70,18 @@ class Basket
         $this->storage->clear();
     }
 
+    /**
+     *
+     * Gets the whole bucket by calling the all() function of the SessionStorage class
+     * then iterates over each product in the bucket and pushing its id onto the array
+     * ids[]
+     *
+     * The array of id's is passed to the find() method of the Product model which 
+     * which retrieves a collection of database record objects matching the id's.
+     * The collection of records is iterated through, attaching a quantity attribute
+     * to each and adding the quantity from the session bucket to that attribute.
+     *
+     */ 
     public function all()
     {
         $ids = [];
@@ -80,8 +92,7 @@ class Basket
             $ids[] = $product['product_id'];
         }
 
-        // We pass in a whole array of id's to Eloquent
-        // so that we only do one query :)
+        // We pass in a whole array of id's to Eloquent which will use only one query
         $products = $this->product->find($ids);
 
         foreach ($products as $product)
@@ -90,11 +101,41 @@ class Basket
             $items[] = $product;
         }
 
+        // For my own clarification, this returns an array of database objects
         return $items;
     }
 
     public function itemCount()
     {
         return count($this->storage);
+    }
+
+    public function subTotal()
+    {
+        $total = 0;
+
+        foreach ($this->all() as $item)
+        {
+            if ($item->outOfStock())
+            {
+                continue;
+            }
+
+            $total = $total + $item->price * $item->quantity;
+        }
+
+        return $total;
+    }
+
+    public function refresh()
+    {
+        // The all() function returns an array of database objects.
+        foreach ($this->all() as $item)
+        {
+            if (!$item->hasStock($item->quantity))
+            {
+                $this->update($item, $item->stock);
+            }
+        }
     }
 }

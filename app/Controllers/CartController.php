@@ -14,6 +14,8 @@ use Psr\Http\Message\ResponseInterface as Response;
 
 use Psr\Http\Message\ServerRequestInterface as Request;
 
+use Cart\Basket\Exceptions\QuantityExceededException;
+
 class CartController
 {
     protected $basket;
@@ -28,6 +30,8 @@ class CartController
     public function index(Request $request, Response $response, Twig $view)
     {
         // TODO
+        $this->basket->refresh();
+
         return $view->render($response, 'cart/index.twig');
 
     }  
