@@ -13,4 +13,6 @@ interface StorageInterface
     public function exists($index);
 
     public function unset($index);
+
+    public function clear();
 } 

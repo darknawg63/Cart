@@ -35,7 +35,10 @@ class Basket
             throw new QuantityExceededException;
         }
 
-        if ($quantity === 0)
+        // This was not working with strict type checking, probably because of $quantity 
+        // being a string. We could type cast to integer like (int) $quantity, but I've 
+        // chosen to not strictly check the type with '==='.
+        if ($quantity == 0)
         {
             $this->remove($product);
 
