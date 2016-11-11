@@ -13,7 +13,7 @@ class Product extends Model
             return false;
         }
 
-        return (bool) ($this->stock <= 50);
+        return (bool) ($this->stock <= 3);
     }
 
     public function outOfStock()

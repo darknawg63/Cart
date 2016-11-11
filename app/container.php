@@ -8,18 +8,26 @@ use Slim\Views\TwigExtension;
 use Interop\Container\ContainerInterface;
 use Cart\Support\Storage\SessionStorage;
 use Cart\Support\Storage\Contracts\StorageInterface;
+use Cart\Validation\Contracts\ValidatorInterface;
+use Cart\Validation\Validator;
 
 
 return [
 
     'router' => get(Slim\Router::class),
 
-    StorageInterface::class => function(ContainerInterface $c) {
+    ValidatorInterface::class => function (ContainerInterface $c) {
+
+        return new Validator;
+
+    },
+
+    StorageInterface::class => function (ContainerInterface $c) {
 
         return new SessionStorage('cart');
     },
 
-    Twig::class => function(ContainerInterface $c) {
+    Twig::class => function (ContainerInterface $c) {
 
         $twig = new Twig(__dir__ . '/../resources/views', [
 
@@ -43,11 +51,11 @@ return [
 
     },
 
-    Product::class => function(ContainerInterface $c) {
+    Product::class => function (ContainerInterface $c) {
         return new Product;
     },
 
-    Basket::class => function(ContainerInterface $c) {
+    Basket::class => function (ContainerInterface $c) {
         
         return new Basket(
 

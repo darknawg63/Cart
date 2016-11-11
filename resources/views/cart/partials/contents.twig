@@ -1,0 +1,17 @@
+<div class="table">
+
+    <!-- We can just use basket because it has been made global to all templates in container.php -->
+    <!-- with declaration $twig->getEnvironment()->addGlobal('basket', $c->get(Basket::class)); -->
+    {% for item in basket.all %}
+
+    <tr>
+
+        <td>{{ item.title }}</td>
+
+        <td>{{ item.quantity }}</td>
+
+    </tr>
+
+    {% endfor %}
+
+</div>
