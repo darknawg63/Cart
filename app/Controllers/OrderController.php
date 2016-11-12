@@ -16,6 +16,8 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 
 use Cart\Validation\Contracts\ValidatorInterface;
 
+use Cart\Validation\Forms\OrderForm;
+
 class OrderController
 {
 
@@ -55,10 +57,13 @@ class OrderController
             return $response->withRedirect($this->router->pathFor('cart.index'));
         }
 
-        $validation = $this->validator->validate($request, []);
+        $validation = $this->validator->validate($request, OrderForm::rules());
         
         if ($validation->fails())
         {
+            var_dump($validation->errors);
+            die();
+
             return $response->withRedirect($this->router->pathFor('order.index'));
         }
 
