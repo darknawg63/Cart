@@ -1,5 +1,7 @@
 <?php
 
+// Validator.php
+
 namespace Cart\Validation;
 
 use Cart\Validation\Contracts\ValidatorInterface;
@@ -27,6 +29,8 @@ class Validator implements ValidatorInterface
                 $this->errors[$field] = $e->getMessages();
             }
         }
+
+        $_SESSION['errors'] = $this->errors;
 
         return $this;
     }

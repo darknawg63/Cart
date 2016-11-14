@@ -1,5 +1,7 @@
 <?php
 
+// OrderController.php
+
 namespace Cart\Controllers;
 
 use Slim\Router;
@@ -62,7 +64,7 @@ class OrderController
         if ($validation->fails())
         {
             var_dump($validation->errors);
-            die();
+            die('OrderController');
 
             return $response->withRedirect($this->router->pathFor('order.index'));
         }

@@ -1,7 +1,10 @@
 <?php
 
-namespace Cart\Middlewware;
+// ValidationErrorsMiddleware.php
 
+namespace Cart\Middleware;
+
+use Slim\Views\Twig;
 
 class ValidationErrorsMiddleware
 {
@@ -21,6 +24,16 @@ class ValidationErrorsMiddleware
    {
        $response = $next($request, $response);
 
+       if (isset($_SESSION['errors']))
+       {
+           // Our views should be picking up the errors, but for some reason it doesn't
+           $this->view->getEnvironment()->addGlobal('errors', $_SESSION['errors']);
+           var_dump($this->view);
+           die('ValidationErrorsMiddleware');
+
+           unset($_SESSION['errors']);
+       }
+
        return $response;
-   } 
+   }
 }

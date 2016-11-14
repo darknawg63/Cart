@@ -1,5 +1,8 @@
 <?php
 
+// routes.php
+
+
 //        uri, controller,                       method,
 $app->get('/', ['Cart\Controllers\HomeController', 'index'])->setName('home');
 
