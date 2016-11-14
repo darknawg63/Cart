@@ -28,8 +28,8 @@ class ValidationErrorsMiddleware
        {
            // Our views should be picking up the errors, but for some reason it doesn't
            $this->view->getEnvironment()->addGlobal('errors', $_SESSION['errors']);
-           var_dump($this->view);
-           die('ValidationErrorsMiddleware');
+           //var_dump($this->view);
+           //die('ValidationErrorsMiddleware');
 
            unset($_SESSION['errors']);
        }

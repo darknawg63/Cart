@@ -10,6 +10,10 @@ use Slim\Views\Twig;
 
 use Cart\Models\Product;
 
+use Cart\Models\Customer;
+
+use Cart\Models\Address;
+
 use Cart\Basket\Basket;
 
 use Psr\Http\Message\ResponseInterface as Response;
@@ -50,7 +54,7 @@ class OrderController
         return $view->render($response, 'order/index.twig');
     }
 
-    public function create(Request $request, Response $response)
+    public function create(Request $request, Response $response, Customer $customer, Address $address)
     {
         $this->basket->refresh();
 
@@ -63,12 +67,52 @@ class OrderController
         
         if ($validation->fails())
         {
-            var_dump($validation->errors);
-            die('OrderController');
+            //var_dump($validation->errors);
+            //die('OrderController');
 
             return $response->withRedirect($this->router->pathFor('order.index'));
         }
 
-        die('create order');
+        $hash = bin2hex(random_bytes(32));
+
+        $customer = $customer->firstOrCreate([
+            'email' => $request->getParam('email'),
+            'name' => $request->getParam('name'),
+        ]);
+
+        $address = $address->firstOrCreate([
+            'address1' => $request->getParam('address1'),
+            'address2' => $request->getParam('address2'),
+            'city' => $request->getParam('city'),
+            'postal_code' => $request->getParam('postal_code'),
+        ]);
+
+        $order = $customer->order()->create([
+            'hash' => $hash,
+            'paid' => false,
+
+            // 5 is for the shipping and hanling fee :))
+            'total' => $this->basket->subTotal() + 5,
+            'address_id' => $address->id,
+        ]);
+
+        $order->products()->saveMany(
+            $this->basket->all(),
+            $this->getQuantities($this->basket->all())
+        );
+
     }
+
+    protected function getQuantities($items)
+    {
+        $quantities = [];
+        
+        foreach ($items as $item)
+        {
+            $quantities[] = ['quantity' => $item->quantity];
+        }
+
+        return $quantities;
+    }
+
 }
