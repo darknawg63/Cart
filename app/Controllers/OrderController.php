@@ -56,6 +56,9 @@ class OrderController
 
     public function create(Request $request, Response $response, Customer $customer, Address $address)
     {
+        var_dump($request->getParams());
+        die();
+
         $this->basket->refresh();
 
         if (!$this->basket->subTotal())
