@@ -106,8 +106,7 @@
 
 <script>
     $.ajax({
-        url: '{{ path_for('
-        braintree.token ') }}',
+        url: '{{ path_for('braintree.token') }}',
         type: 'get',
         dataType: 'json'
     }).done(function(data) {

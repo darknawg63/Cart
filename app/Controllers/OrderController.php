@@ -24,9 +24,10 @@ use Cart\Validation\Contracts\ValidatorInterface;
 
 use Cart\Validation\Forms\OrderForm;
 
+use Braintree_Transaction;
+
 class OrderController
 {
-
     protected $basket;
 
     protected $router;
@@ -56,14 +57,16 @@ class OrderController
 
     public function create(Request $request, Response $response, Customer $customer, Address $address)
     {
-        var_dump($request->getParams());
-        die();
-
         $this->basket->refresh();
 
         if (!$this->basket->subTotal())
         {
             return $response->withRedirect($this->router->pathFor('cart.index'));
+        }
+
+        if (!$request->getParam('payment_method_nonce'))
+        {
+            return $response->withRedirect($this->router->pathFor('order.index'));
         }
 
         $validation = $this->validator->validate($request, OrderForm::rules());
@@ -104,6 +107,16 @@ class OrderController
             $this->getQuantities($this->basket->all())
         );
 
+        $result = Braintree_Transaction::sale([
+            'amount' => $this->basket->subTotal() + 5,
+            'paymentMethodNonce' => $request->getParam('payment_method_nonce'),
+            'options' => [
+                'submitForSettlement' => true,
+            ],
+        ]);
+
+        var_dump($result);
+        die();
     }
 
     protected function getQuantities($items)
