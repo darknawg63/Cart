@@ -13,7 +13,7 @@ use Respect\Validation\Exceptions\NestedValidationException;
 
 class Validator implements ValidatorInterface
 {
-    public $errors = [];
+    protected $errors = [];
 
     public function validate(Request $request, array $rules)
     {

@@ -14,19 +14,39 @@
 
                     <hr>
 
-                    <div class="form-group">
+                    <div class="form-group {% if errors.email %} has-error {% endif %}">
 
                         <label for="email" id="email" class="">Email</label>
 
                         <input type="email" name="email" id="email" class="form-control">
 
+                        {% if errors.email %}
+
+                            <span class="help-block">
+
+                                {{ errors.email | first }}
+
+                            </span>
+
+                        {% endif %}
+
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group {% if errors.name %} has-error {% endif %}">
 
                         <label for="name" id="name" class="">Full name</label>
 
                         <input type="text" name="name" id="name" class="form-control">
+
+                        {% if errors.name %}
+
+                           <span class="help-block">
+                               
+                               {{ errors.name | first }}
+                           
+                           </span> 
+
+                        {% endif %}
 
                     </div>
 
@@ -38,35 +58,75 @@
 
                     <hr>
 
-                    <div class="form-group">
+                    <div class="form-group {% if errors.address1 %} has-error {% endif %}">
 
                         <label for="address1">Address Line 1</label>
 
                         <input type="text" name="address1" id="address1" class="form-control">
 
+                        {% if errors.email %}
+
+                            <span class="help-block">
+
+                                {{ errors.address1 | first }}
+
+                            </span>
+
+                        {% endif %}
+
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group {% if errors.address2 %} has-error {% endif %}">
 
                         <label for="address2">Address Line 2</label>
 
                         <input type="text" name="address2" id="address2" class="form-control">
 
+                        {% if errors.email %}
+
+                            <span class="help-block">
+
+                                {{ errors.address2 | first }}
+
+                            </span>
+
+                        {% endif %}
+
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group {% if errors.city %} has-error {% endif %}">
 
                         <label for="city">City</label>
 
                         <input type="text" name="city" id="city" class="form-control">
 
+                        {% if errors.email %}
+
+                            <span class="help-block">
+
+                                {{ errors.city | first }}
+
+                            </span>
+
+                        {% endif %}
+
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group {% if errors.postal_code %} has-error {% endif %}">
 
                         <label for="postal_code">Postal code</label>
 
                         <input type="text" name="postal_code" id="postal_code" class="form-control">
+
+                        {% if errors.email %}
+
+                            <span class="help-block">
+
+                                {{ errors.postal_code | first }}
+
+                            </span>
+
+                        {% endif %}
 
                     </div>
 
@@ -100,19 +160,4 @@
 
 </form>
 
-{% endblock %} {% block scripts %}
-
-<script src="https://js.braintreegateway.com/js/braintree-2.30.0.min.js"></script>
-
-<script>
-    $.ajax({
-        url: '{{ path_for('braintree.token') }}',
-        type: 'get',
-        dataType: 'json'
-    }).done(function(data) {
-        braintree.setup(data.token, 'dropin', {
-            container: 'payment'
-        });
-    });
-</script>
-{% endblock %}
+{% endblock %} {% block scripts %} {% endblock %}

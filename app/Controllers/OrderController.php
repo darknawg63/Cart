@@ -64,19 +64,16 @@ class OrderController
             return $response->withRedirect($this->router->pathFor('cart.index'));
         }
 
-        if (!$request->getParam('payment_method_nonce'))
-        {
-            return $response->withRedirect($this->router->pathFor('order.index'));
-        }
+        //if (!$request->getParam('payment_method_nonce'))
+        //{
+        //    return $response->withRedirect($this->router->pathFor('order.index'));
+        //}
 
         $validation = $this->validator->validate($request, OrderForm::rules());
         
         if ($validation->fails())
         {
-            //var_dump($validation->errors);
-            //die('OrderController');
-
-            return $response->withRedirect($this->router->pathFor('order.index'));
+           return $response->withRedirect($this->router->pathFor('order.index'));
         }
 
         $hash = bin2hex(random_bytes(32));
@@ -114,6 +111,17 @@ class OrderController
                 'submitForSettlement' => true,
             ],
         ]);
+
+        $event = new \Cart\Events\OrderWasCreated();
+
+        $event->attach([
+
+            new \Cart\Handlers\EmptyBasket
+
+        ]);
+
+        // Now dispatch any events that have been attached
+        $event->dispatch();
 
         var_dump($result);
         die();
