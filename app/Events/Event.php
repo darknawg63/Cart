@@ -36,7 +36,6 @@ class Event
 
     public function dispatch()
     {
-        die('dispatch()');
         foreach ($this->handlers as $handler)
         {
             // passing in the current instance of this Event

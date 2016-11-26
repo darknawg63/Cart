@@ -2,7 +2,7 @@
 
 namespace Cart\Handlers;
 
-use Cart\Hanlders\Contracts\HandlerInterface;
+use Cart\Handlers\Contracts\HandlerInterface;
 
 
 class EmptyBasket implements HandlerInterface
