@@ -25,6 +25,8 @@ return [
 
     },
 
+    // cart is the name of the bucket, or array, within the SessionStorage 
+    // object where all of the user's chosen items are stored.
     StorageInterface::class => function (ContainerInterface $c) {
 
         return new SessionStorage('cart');
@@ -78,6 +80,9 @@ return [
         
         return new Basket(
 
+            // Here we grab these two classes off the container
+            // and pass them into, or make them available to <thead>
+            // Basket class
             $c->get(SessionStorage::class),
             $c->get(Product::class)
 

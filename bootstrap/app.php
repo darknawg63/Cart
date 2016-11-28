@@ -46,3 +46,4 @@ require __dir__ . '/../app/routes.php';
 
 // This registers our custom made middleware :)
 $app->add(new \Cart\Middleware\ValidationErrorsMiddleware($container->get(Twig::class)));
+$app->add(new \Cart\Middleware\OldInputMiddleware($container->get(Twig::class)));

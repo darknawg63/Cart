@@ -112,10 +112,22 @@ class OrderController
             ],
         ]);
 
-        $event = new \Cart\Events\OrderWasCreated();
+
+        $event = new \Cart\Events\OrderWasCreated($order, $this->basket);
+
+        if (1)
+        {
+           $event->attach(new \Cart\Handlers\RecordFailedPayment);
+           $event->dispatch();
+
+           return $response->withRedirect($this->router->pathFor('order.index'));
+        }
 
         $event->attach([
-            new \Cart\Handlers\EmptyBasket
+            new \Cart\Handlers\MarkOrderPaid,
+            new \Cart\Handlers\RecordSuccessfulPayment($result->transaction->id),
+            new \Cart\Handlers\UpdateStock,
+            new \Cart\Handlers\EmptyBasket,
         ]);
 
         // Now dispatch any events that have been attached

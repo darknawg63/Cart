@@ -5,10 +5,12 @@ namespace Cart\Handlers;
 use Cart\Handlers\Contracts\HandlerInterface;
 
 
-class EmptyBasket implements HandlerInterface
+class MarkOrderPaid implements HandlerInterface
 {
     public function handle($event)
     {
-        $event->basket->clear();
+        $event->order->update([
+            'paid' => true,
+        ]);
     }
 }

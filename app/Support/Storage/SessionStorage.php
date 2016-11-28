@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * The purpose of the storage class is to handle anything that has to do
+ * with getting, setting, counting, querying and clearing items in the 
+ * user's session. By using this utility class we keep all of this code
+ * out of our controller. The SessionStorage class will mainly be used by
+ * the Basket class
+ */
+
 namespace Cart\Support\Storage;
 
 use Countable;
@@ -21,6 +29,9 @@ class SessionStorage implements StorageInterface, Countable
 
     }
 
+    // The $index being passed is the product's  id which is used
+    // to set the bucket index of the product used for later referral
+    // $value is the quantity of the item with id $index :))
     public function set($index, $value)
     {
         $_SESSION[$this->bucket][$index] = $value;

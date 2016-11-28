@@ -1,6 +1,6 @@
 {% extends 'templates/app.twig' %} {% block content %}
 
-<form action="{{ path_for('order.create') }}" method="post">
+<form action="{{ path_for('order.create') }}" method="post" autocomplete="off">
 
     <div class="row">
 
@@ -18,7 +18,7 @@
 
                         <label for="email" id="email" class="">Email</label>
 
-                        <input type="email" name="email" id="email" class="form-control">
+                        <input type="email" name="email" value="{{ old.email }}" id="email" class="form-control">
 
                         {% if errors.email %}
 
@@ -36,7 +36,7 @@
 
                         <label for="name" id="name" class="">Full name</label>
 
-                        <input type="text" name="name" id="name" class="form-control">
+                        <input type="text" name="name" value="{{ old.name }}" id="name" class="form-control">
 
                         {% if errors.name %}
 
@@ -62,7 +62,7 @@
 
                         <label for="address1">Address Line 1</label>
 
-                        <input type="text" name="address1" id="address1" class="form-control">
+                        <input type="text" name="address1" value="{{ old.address1 }}" id="address1" class="form-control">
 
                         {% if errors.email %}
 
@@ -80,7 +80,7 @@
 
                         <label for="address2">Address Line 2</label>
 
-                        <input type="text" name="address2" id="address2" class="form-control">
+                        <input type="text" name="address2" value="{{ old.address2 }}" id="address2" class="form-control">
 
                         {% if errors.email %}
 
@@ -98,7 +98,7 @@
 
                         <label for="city">City</label>
 
-                        <input type="text" name="city" id="city" class="form-control">
+                        <input type="text" name="city" value="{{ old.city }}" id="city" class="form-control">
 
                         {% if errors.email %}
 
@@ -116,7 +116,7 @@
 
                         <label for="postal_code">Postal code</label>
 
-                        <input type="text" name="postal_code" id="postal_code" class="form-control">
+                        <input type="text" name="postal_code" value="{{ old.postal_code }}" id="postal_code" class="form-control">
 
                         {% if errors.email %}
 
