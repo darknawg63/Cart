@@ -14,6 +14,8 @@ use Cart\Models\Customer;
 
 use Cart\Models\Address;
 
+use Cart\Models\Order;
+
 use Cart\Basket\Basket;
 
 use Psr\Http\Message\ResponseInterface as Response;
@@ -53,6 +55,22 @@ class OrderController
         }
 
         return $view->render($response, 'order/index.twig');
+    }
+
+    public function show($hash, Request $request, Response $response, Twig $view, Order $order)
+    {
+        // TODO: Show the user's order summary after completing payment
+
+        $order = $order->with(['address', 'products'])->where('hash', $hash)->first();
+
+        if (!$order)
+        {
+            return $response->withRedirect($this->router->pathFor('home'));
+        }
+
+        return $view->render($response, 'order/show.twig', [
+            'order' => $order,
+        ]);
     }
 
     public function create(Request $request, Response $response, Customer $customer, Address $address)
@@ -115,7 +133,8 @@ class OrderController
 
         $event = new \Cart\Events\OrderWasCreated($order, $this->basket);
 
-        if (1)
+        // By setting this to 1, we can force a failed payment for testing purposes
+        if (!$result->success)
         {
            $event->attach(new \Cart\Handlers\RecordFailedPayment);
            $event->dispatch();
@@ -132,6 +151,10 @@ class OrderController
 
         // Now dispatch any events that have been attached
         $event->dispatch();
+
+        return $response->withRedirect($this->router->pathFor('order.show', [
+            'hash' => $hash,
+        ]));
 
     }
 
