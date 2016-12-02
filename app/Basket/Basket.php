@@ -38,8 +38,8 @@ class Basket
         // This was not working with strict type checking, probably because of $quantity 
         // being a string. We could type cast to integer like (int) $quantity, but I've 
         // chosen to not strictly check the type with '==='.
-        // Update: This appears to work correctly with PHP 7.0 but not with 7.1
-        if ($quantity === 0)
+        // Update: This appears to work correctly when we cast to int
+        if ((int) $quantity === 0)
         {
             $this->remove($product);
 
